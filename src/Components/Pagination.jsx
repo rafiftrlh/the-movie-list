@@ -1,25 +1,43 @@
 /* eslint-disable react/prop-types */
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
+import cn from "../cn";
 
 const Pagination = (props) => {
-  const { page, handlePrevPage, handleNextPage } = props;
+  const { page, totalPages, handlePrevPage, handleNextPage } = props;
 
   return (
     <>
       <div className="">
-        <ul className="flex justify-center items-center gap-5">
+        <ul
+          className={cn(
+            "flex items-center justify-center gap-5",
+            "font-mono text-sm md:text-base"
+          )}
+        >
           <li onClick={handlePrevPage}>
             <button
-              className={`transition cursor-pointer bg-zinc-500/80 hover:bg-zinc-500 p-2 rounded-full hover:scale-105 ${
-                page <= 1 && `hidden`
-              }`}
+              className={`
+              ${cn(
+                "bg-zinc-500/80 hover:bg-zinc-500",
+                "transition cursor-pointer p-2 rounded-full",
+                "hover:scale-105"
+              )}
+              ${page <= 1 && `hidden`}`}
             >
               <IoIosArrowBack />
             </button>
           </li>
-          <li>{page}</li>
+          <li>
+            {page} of {totalPages}
+          </li>
           <li onClick={handleNextPage}>
-            <button className="transition cursor-pointer bg-zinc-500/80 hover:bg-zinc-500 p-2 rounded-full hover:scale-105">
+            <button
+              className={cn(
+                "bg-zinc-500/80 hover:bg-zinc-500",
+                "p-2 transition rounded-full cursor-pointer",
+                "hover:scale-105"
+              )}
+            >
               <IoIosArrowForward />
             </button>
           </li>

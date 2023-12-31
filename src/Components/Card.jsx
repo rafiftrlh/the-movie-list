@@ -6,8 +6,14 @@ import { FaStar } from "react-icons/fa";
 const Card = ({ title, image, popularity, release }) => {
   return (
     <>
-      <div className="flex flex-col gap-2">
-        <div className="w-full overflow-hidden bg-gray-200 rounded-md cursor-pointer aspect-potrait">
+      <div className="flex flex-col">
+        <div
+          className={cn(
+            "w-full overflow-hidden aspect-potrait",
+            "bg-gray-200",
+            "rounded-md cursor-pointer"
+          )}
+        >
           <img
             src={imageUrl + image}
             alt={title}
@@ -17,18 +23,42 @@ const Card = ({ title, image, popularity, release }) => {
             )}
           />
         </div>
-        <h3 className="text-lg font-medium text-zinc-100">
-          <p className="transition cursor-pointer hover:text-primary">
-            {title}
-          </p>
-        </h3>
       </div>
-      <div className="flex justify-between">
-        <div className="flex items-center gap-2">
-          <FaStar className="text-yellow-300" />
-          <p className="text-sm font-medium text-zinc-100">{popularity}</p>
+      <div
+        className={cn("w-full aspect-cinema", "flex flex-col justify-between")}
+      >
+        <h3
+          className={cn(
+            "text-sm md:text-base font-medium line-clamp-2",
+            "transition cursor-pointer",
+            "text-zinc-100 hover:text-primary"
+          )}
+        >
+          {title}
+        </h3>
+        <div className="flex justify-between">
+          <div className="flex items-center gap-2">
+            <FaStar className="text-yellow-300" />
+            <p
+              className={cn(
+                "text-xs md:text-sm",
+                "text-zinc-100",
+                "font-mono font-medium"
+              )}
+            >
+              {popularity}
+            </p>
+          </div>
+          <p
+            className={cn(
+              "text-xs md:text-sm",
+              "text-zinc-400",
+              "font-mono font-medium"
+            )}
+          >
+            {release}
+          </p>
         </div>
-        <p className="mt-1 text-sm font-medium text-zinc-500">{release}</p>
       </div>
     </>
   );

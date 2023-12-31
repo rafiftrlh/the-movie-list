@@ -1,13 +1,14 @@
 /* eslint-disable no-unused-vars */
-import React, { Suspense, useEffect, useState } from "react";
+import cn from "../cn";
+import React, { Suspense, useState } from "react";
 import Navbar from "../Components/Navbar";
-import Pagination from "../Components/Pagination";
 import { useGetMovie } from "../hooks/useGetMovie";
 import { Link } from "react-router-dom";
-import cn from "../cn";
-// import CarouselComp from "../Components/Carousel";
+
+import PaginationComp from "../Components/Pagination";
 import CardSkeleton from "../utils/CardSkeleton";
 
+const CarouselComp = React.lazy(() => import("../Components/Carousel"));
 const Card = React.lazy(() => import("../Components/Card"));
 
 const Home = () => {
@@ -33,14 +34,26 @@ const Home = () => {
   return (
     <>
       <div className={cn("relative w-full pb-10", "text-white bg-zinc-900")}>
+        {/* {page === 1 && <CarouselComp />} */}
         <Navbar classDisplay="sticky" />
-        {/* <CarouselComp /> */}
-        <div className="grid w-full h-full grid-cols-4 gap-5 px-5 py-10">
+        <h3 className={cn("mt-5 ml-5", "font-bold text-lg")}>Popularity</h3>
+        <div
+          className={cn(
+            "w-full h-full",
+            "grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4",
+            "gap-5 px-5 pb-10 pt-5"
+          )}
+        >
           {dataMovies?.results?.map((item) => (
             <Link
               key={item.id}
               to={`/movie/${item.id}`}
-              className="relative flex flex-col justify-between gap-2 mb-5 h-[530px] group"
+              className={cn(
+                "relative group",
+                "flex flex-col gap-2",
+                "h-full",
+                "mb-5"
+              )}
             >
               <Suspense fallback={<CardSkeleton />}>
                 <Card
@@ -55,11 +68,11 @@ const Home = () => {
             </Link>
           ))}
         </div>
-        <Pagination
+        <PaginationComp
           page={page}
           handlePrevPage={handlePrevPage}
           handleNextPage={handleNextPage}
-          total={dataMovies.total_pages}
+          totalPages={dataMovies?.total_pages}
         />
       </div>
     </>
